@@ -35,7 +35,6 @@ function build_image() {
     --tag "${REGISTRY}${name}:latest" \
     --target "${target}" \
     "${ADDITIONAL_ARGS}" \
-    \
     "docker/${APP}"
 }
 

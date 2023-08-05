@@ -39,10 +39,10 @@ FROM build as tools
 
 WORKDIR /opt/klipper
 
-RUN apt update \
- && apt install -y \
+RUN apt-get update \
+ && apt-get install -y \
       virtualenv \
-      python-dev \
+      python3-dev \
       libffi-dev \
       build-essential \
       libncurses-dev \
@@ -57,8 +57,11 @@ RUN apt update \
       binutils-arm-none-eabi \
       libusb-1.0 \
       pkg-config \
- && apt clean
+ && apt-get clean
 
+RUN chmod o+rw .
+
+USER klipper
 VOLUME ["/opt/klipper/out"]
 ENTRYPOINT ["bash", "-c"]
 CMD ["make menuconfig && make"]
