@@ -3,7 +3,10 @@
 set -e
 
 readonly APP=${1}
-readonly REGISTRY="miob/"
+shift
+readonly REGISTRY=${1}
+shift
+readonly ADDITIONAL_ARGS="$*"
 readonly DOCKERFILE="docker/${APP}/Dockerfile"
 if [[ ! -f "${DOCKERFILE}" ]]; then
   echo "Dockerfile not found"
@@ -26,4 +29,6 @@ docker buildx build \
   --tag "${REGISTRY}${APP}:${TAG}" \
   --tag "${REGISTRY}${APP}:latest" \
   --target "run" \
+  "${ADDITIONAL_ARGS}" \
+  \
   "docker/${APP}"
