@@ -7,9 +7,6 @@ on:
         required: true
         type: string
         description: 'app image to build'
-    secrets:
-      DOCKERHUB_USERNAME:
-        required: true
 
 jobs:
   build:
@@ -18,4 +15,4 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3.5.3
       - name: Build the Docker image
-        run: ./scripts/build_images.sh ${{ inputs.app }} ${{ secrets.DOCKERHUB_USERNAME }}\ --push
+        run: ./scripts/build_images.sh ${{ inputs.app }} ${{ secrets.DOCKER_USERNAME }}\ --push
