@@ -26,7 +26,7 @@ readonly TAG
 
 echo "Building ${APP} with tag ${TAG}"
 docker buildx build \
-  --platform "linux/amd64,linux/arm64/v8"
+  --platform "linux/amd64,linux/arm64/v8" \
   --build-arg "VERSION=${COMMIT}" \
   --tag "${REGISTRY}${APP}:${TAG}" \
   --tag "${REGISTRY}${APP}:latest" \
