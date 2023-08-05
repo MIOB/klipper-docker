@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Klipper
 
 on:
   workflow_dispatch:
