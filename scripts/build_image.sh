@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
-set -ex
+set -e
 
 readonly APP=${1}
 shift
-readonly REGISTRY=${1}
+readonly GITHUB_NAME=${1}
 shift
 readonly ADDITIONAL_ARGS="$*"
+readonly REGISTRY="ghcr.io/${GITHUB_NAME}/"
 readonly DOCKERFILE="docker/${APP}/Dockerfile"
 if [[ ! -f "${DOCKERFILE}" ]]; then
   echo "Dockerfile not found"
