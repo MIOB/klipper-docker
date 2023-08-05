@@ -9,6 +9,7 @@ if [[ $1 == "--mks_robin" ]]; then
 fi
 
 docker run --rm -it \
+  --pull "always" \
   -v './out:/opt/klipper/out' \
   -v "./config/klipper.config:/opt/klipper/.config" \
   --user "$(id -u):$(id -g)" \
