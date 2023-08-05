@@ -8,7 +8,8 @@ WORKDIR /opt
 RUN git clone ${REPOSITORY} klipper \
  && cd klipper \
  && git checkout ${VERSION} \
- && rm -rf .git
+ && rm -rf .git \
+ && chmod o+rwx /opt/klipper
 
 RUN python -m venv venv \
  && venv/bin/pip install -r klipper/scripts/klippy-requirements.txt \
@@ -59,9 +60,6 @@ RUN apt-get update \
       pkg-config \
  && apt-get clean
 
-RUN chmod o+rw .
-
-USER klipper
 VOLUME ["/opt/klipper/out"]
 ENTRYPOINT ["bash", "-c"]
 CMD ["make menuconfig && make"]
