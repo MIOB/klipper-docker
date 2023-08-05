@@ -1,6 +1,6 @@
 services:
   klipper:
-    image: "miob/klipper:latest"
+    image: "ghcr.io/miob/klipper:latest"
     restart: "unless-stopped"
     privileged: true
     volumes:
@@ -10,7 +10,7 @@ services:
       - "/dev:/dev"
 
   moonraker:
-    image: "miob/moonraker:latest"
+    image: "ghcr.io/miob/moonraker:latest"
     restart: "unless-stopped"
     depends_on:
       - "klipper"
