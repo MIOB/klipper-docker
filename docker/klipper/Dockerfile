@@ -34,3 +34,31 @@ USER klipper
 VOLUME ["/opt/data/config", "/opt/data/comms", "/opt/data/gcodes"]
 ENTRYPOINT ["/opt/venv/bin/python", "klipper/klippy/klippy.py"]
 CMD ["-I", "data/comms/klipper.tty", "-a", "data/comms/klipper.sock", "data/config/printer.cfg"]
+
+FROM build as tools
+
+WORKDIR /opt/klipper
+
+RUN apt update \
+ && apt install -y \
+      virtualenv \
+      python-dev \
+      libffi-dev \
+      build-essential \
+      libncurses-dev \
+      libusb-dev \
+      avrdude \
+      gcc-avr \
+      binutils-avr \
+      avr-libc \
+      stm32flash \
+      libnewlib-arm-none-eabi \
+      gcc-arm-none-eabi \
+      binutils-arm-none-eabi \
+      libusb-1.0 \
+      pkg-config \
+ && apt clean
+
+VOLUME ["/opt/klipper/out"]
+ENTRYPOINT ["bash", "-c"]
+CMD ["make menuconfig && make"]

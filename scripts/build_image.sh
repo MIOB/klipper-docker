@@ -24,13 +24,23 @@ readonly COMMIT
 TAG=$(echo "${COMMIT}" | cut -c 1-8)
 readonly TAG
 
-echo "Building ${APP} with tag ${TAG}"
-docker buildx build \
-  --platform "linux/amd64,linux/arm64/v8" \
-  --build-arg "VERSION=${COMMIT}" \
-  --tag "${REGISTRY}${APP}:${TAG}" \
-  --tag "${REGISTRY}${APP}:latest" \
-  --target "run" \
-  "${ADDITIONAL_ARGS}" \
-  \
-  "docker/${APP}"
+function build_image() {
+  local target=${1}
+  local name=${2}
+  echo "Building target ${target} of ${name} with tag ${TAG}"
+  docker buildx build \
+    --platform "linux/arm64/v8" \
+    --build-arg "VERSION=${COMMIT}" \
+    --tag "${REGISTRY}${name}:${TAG}" \
+    --tag "${REGISTRY}${name}:latest" \
+    --target "${target}" \
+    "${ADDITIONAL_ARGS}" \
+    \
+    "docker/${APP}"
+}
+
+build_image "run" "${APP}"
+
+if [[ $APP == "klipper" ]]; then
+  build_image "tools" "klipper-tools"
+fi
