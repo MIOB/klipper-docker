@@ -4,7 +4,7 @@ set -e
 
 readonly APP=${1}
 shift
-readonly GITHUB_NAME=${1}
+readonly GITHUB_NAME=${1,,}
 shift
 readonly ADDITIONAL_ARGS="$*"
 readonly REGISTRY="ghcr.io/${GITHUB_NAME}/"
