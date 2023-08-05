@@ -2,6 +2,7 @@ services:
   klipper:
     image: "ghcr.io/miob/klipper:latest"
     restart: "unless-stopped"
+    pull_policy: "always"
     privileged: true
     volumes:
       - "./config:/opt/data/config"
@@ -12,6 +13,7 @@ services:
   moonraker:
     image: "ghcr.io/miob/moonraker:latest"
     restart: "unless-stopped"
+    pull_policy: "always"
     depends_on:
       - "klipper"
       - "klipper-docs"
@@ -33,6 +35,7 @@ services:
   mainsail:
     image: "ghcr.io/mainsail-crew/mainsail:latest"
     restart: "unless-stopped"
+    pull_policy: "always"
     labels:
       traefik.enable: true
       traefik.http.routers.mainsail.rule: "PathPrefix(`/`)"
@@ -53,6 +56,7 @@ services:
 
   klipper-docs:
     image: "miob/klipper:latest"
+    pull_policy: "always"
     entrypoint: "bash -c 'cp -r /opt/klipper/docs /opt/data/klipper/docs && cp -r /opt/klipper/config /opt/data/klipper/config'"
     volumes:
       - "klipper-config:/opt/data/klipper/config"
