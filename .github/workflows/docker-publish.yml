@@ -1,0 +1,12 @@
+name: Moonraker
+
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    permissions:
+      contents: read
+      packages: write
+    uses: ./.github/workflows/docker-image.yml
+    with:
+      app: moonraker
