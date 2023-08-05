@@ -55,7 +55,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   klipper-docs:
-    image: "miob/klipper:latest"
+    image: "ghcr.io/miob/klipper:latest"
     pull_policy: "always"
     entrypoint: "bash -c 'cp -r /opt/klipper/docs /opt/data/klipper/docs && cp -r /opt/klipper/config /opt/data/klipper/config'"
     volumes:
