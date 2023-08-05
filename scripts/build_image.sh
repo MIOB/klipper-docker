@@ -6,7 +6,7 @@ readonly APP=${1}
 shift
 readonly GITHUB_NAME=${1,,}
 shift
-readonly ADDITIONAL_ARGS="$*"
+readonly ADDITIONAL_ARGS=("$@")
 readonly REGISTRY="ghcr.io/${GITHUB_NAME}/"
 readonly DOCKERFILE="docker/${APP}/Dockerfile"
 if [[ ! -f "${DOCKERFILE}" ]]; then
@@ -34,7 +34,7 @@ function build_image() {
     --tag "${REGISTRY}${name}:${TAG}" \
     --tag "${REGISTRY}${name}:latest" \
     --target "${target}" \
-    "${ADDITIONAL_ARGS}" \
+    "${ADDITIONAL_ARGS[@]}" \
     "docker/${APP}"
 }
 
